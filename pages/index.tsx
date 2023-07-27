@@ -1,11 +1,27 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import styles from "@/styles/Home.module.css";
+import { log } from "console";
+import { useState } from "react";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [data, setData] = useState([]);
+
+  async function fetchData() {
+    try {
+      const data = await fetch(`/api`, {
+        method: "GET",
+      });
+      const result = await data.json();
+      console.log("result", result);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  fetchData();
   return (
     <>
       <Head>
@@ -26,7 +42,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              By{' '}
+              By{" "}
               <Image
                 src="/vercel.svg"
                 alt="Vercel Logo"
@@ -110,5 +126,5 @@ export default function Home() {
         </div>
       </main>
     </>
-  )
+  );
 }
